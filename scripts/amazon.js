@@ -27,7 +27,7 @@ products.forEach((product)=>{
     </div>
 
     <div class="product-quantity-container">
-      <select>
+      <select class = 'js-quantity-selector-${product.id}'>
         <option selected value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
@@ -43,7 +43,7 @@ products.forEach((product)=>{
 
     <div class="product-spacer"></div>
 
-    <div class="added-to-cart">
+    <div class="added-to-cart added-to-cart-${product.id}">
       <img src="images/icons/checkmark.png">
       Added
     </div>
@@ -56,35 +56,56 @@ products.forEach((product)=>{
   
 });
 
+let clearMessage = {};
 // console.log(productsHTML);
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
 document.querySelectorAll('.js-add-to-cart').forEach(button =>{
   button.addEventListener('click', ()=>{
-    const productID = button.dataset.productId;
+    // const productID = button.dataset.productId;
+    //USES closures
+    const {productId} = button.dataset
+    const quantityProduct = Number(document.querySelector(`.js-quantity-selector-${productId}`).value);
+    const message = document.querySelector(`.added-to-cart-${productId}`);
     let matchingItem;
     cart.forEach((item)=>{
-      if (productID == item.productID) {
+      if (productId == item.productID) {
         matchingItem = item;
       }
       });
     if (matchingItem){
-      matchingItem.quantity+=1;
+      matchingItem.quantity+=quantityProduct;
     }
     else {
       cart.push ({
-      productID: productID,
-      quantity:1
+      productID: productId,
+      quantity:quantityProduct
     });
     }
     
     let cartQuantity = 0;
     cart.forEach(item=>{
       cartQuantity += item.quantity;
+      
     })
-
-    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
     
+
+    
+    message.classList.add('added-visible');
+
+    // let addedButton;
+    if (clearMessage[productId]){
+      clearTimeout(clearMessage[productID]);
+    }
+    
+    clearMessage[productId] = setTimeout(()=>{
+        message.classList.remove('added-visible');
+      }, 2000);
+
+  
+    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+    console.log(cartQuantity);
+    console.log(cart);
   });
 
 })
