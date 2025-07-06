@@ -5,6 +5,7 @@ import { formatCurrency } from './utils/money.js';
 
 let cartSummary = "";
 
+
 cart.forEach((cartItem)=>{
   const productId = cartItem.productId;
   let matchingProduct;
@@ -90,7 +91,6 @@ cartSummary+= `
     </div>
   </div>
 </div>
-
 `
 });
 
@@ -99,11 +99,11 @@ document.querySelector('.js-order-summary').innerHTML = cartSummary;
 
 document.querySelectorAll('.js-delete-link').forEach((link)=>{
   link.addEventListener('click', ()=>{
-    console.log('delete');
-    const productID = link.dataset.productId;
-    removeFromCart(productID);
+    // console.log('delete');
+    const productId = link.dataset.productId;
+    removeFromCart(productId);
 
-    const container = document.querySelector(`.js-cart-item-container-${productID}`);
+    const container = document.querySelector(`.js-cart-item-container-${productId}`);
     container.remove();
   });
 })
