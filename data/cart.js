@@ -95,3 +95,15 @@ export function saveQuantity(productId, newQuantity){
     alert('Quantity must be in between 0 and 1000');
   }
 };
+
+export function updateDeliveryOption(productId, deliveryOptionId) {
+  let matchingItem;
+  
+  cart.forEach((cartItem)=>{
+    if (productId == cartItem.productId) {
+      matchingItem = cartItem;
+    }
+    });
+    matchingItem.deliveryOptionId = deliveryOptionId;
+    saveToStorage();
+}
