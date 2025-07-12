@@ -146,6 +146,7 @@ export function renderOrderSummary(){
       const productId = link.dataset.productId
       const newQuantity = Number(document.querySelector(`.js-input-${productId}`).value);
       saveQuantity(productId, newQuantity);
+      renderPaymentSummary();
   })
   });
 
@@ -157,6 +158,7 @@ export function renderOrderSummary(){
         const productId = input.dataset.productId
         const newQuantity = Number(input.value);
         saveQuantity(productId, newQuantity);
+        renderPaymentSummary();
       }
     });
 
