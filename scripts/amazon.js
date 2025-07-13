@@ -74,6 +74,16 @@ document.querySelectorAll('.js-add-to-cart').forEach(button =>{
     const {productId} = button.dataset
    
     addToCart(productId);
+    const clearMessage = {};
+
+    if (clearMessage[productId]){
+      clearTimeout(clearMessage[productId]);
+    }
+    
+    clearMessage[productId] = setTimeout(()=>{
+        message.classList.remove('added-visible');
+      }, 2000);
+    
     updateCartQuantity();
    
   });
