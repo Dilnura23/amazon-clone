@@ -71,6 +71,8 @@ export function calculateCartQuantity(){
       cartQuantity += cartItem.quantity;
     })
   document.querySelector('.js-display-quantity-home').innerHTML = cartQuantity;
+  // document.querySelector('.payment-total-items').innerText = cartQuantity;
+  return cartQuantity;
 }
 
 

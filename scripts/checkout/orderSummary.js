@@ -3,7 +3,7 @@ import {products, getProduct} from '../../data/products.js';
 import formatCurrency from '../utils/money.js'; 
 import {hello} from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
-import { deliveryOptions, getDeliveryOption } from '../../data/deliveryOptions.js';
+import { deliveryOptions, getDeliveryOption, calculateDeliveryDate } from '../../data/deliveryOptions.js';
 import { renderPaymentSummary } from './paymentSummary.js';
 
 
@@ -22,12 +22,12 @@ export function renderOrderSummary(){
    let deliveryOption = getDeliveryOption(deliveryOptionId);
 
 
-  const today = dayjs();
-  const deliverDate = today.add(
-    deliveryOption.deliveryDays,
-    'days'
-  );
-  const dateString = deliverDate.format('dddd, MMMM D');
+  // const today = dayjs();
+  // const deliverDate = today.add(
+  //   deliveryOption.deliveryDays,
+  //   'days'
+  // );
+  const dateString = calculateDeliveryDate(deliveryOption)
 
   cartSummary+= `
     <div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
@@ -79,12 +79,8 @@ export function renderOrderSummary(){
   function deliveryOptionHTML(matchingProduct, cartItem){
     let html = '';
     deliveryOptions.forEach((deliveryOption)=> {
-      const today = dayjs();
-      const deliverDate = today.add(
-        deliveryOption.deliveryDays,
-        'days'
-      );
-      const dateString = deliverDate.format('dddd, MMMM D');
+      
+      const dateString = calculateDeliveryDate(deliveryOption);
       const priceString = deliveryOption.priceCents
       === 0
         ? 'FREE'
@@ -93,7 +89,7 @@ export function renderOrderSummary(){
       const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
 
       html+=
-      `<div class="delivery-option js-delivery-option"        data-product-id="${matchingProduct.id}" data-delivery-option-id="${deliveryOption.id}">
+      `<div class="delivery-option js-delivery-option"    data-product-id="${matchingProduct.id}" data-delivery-option-id="${deliveryOption.id}">
           <input type="radio"
             ${isChecked ? 'checked': ''}
             class="delivery-option-input"
@@ -119,14 +115,14 @@ export function renderOrderSummary(){
 
   document.querySelectorAll('.js-delete-link').forEach((link)=>{
     link.addEventListener('click', ()=>{
-      // console.log('delete');
+  
       const productId = link.dataset.productId;
       removeFromCart(productId);
+
+      renderOrderSummary();
       renderPaymentSummary();
 
-      const container = document.querySelector(`.js-cart-item-container-${productId}`);
-      container.remove();
-      calculateCartQuantity();
+
     });
   })
 
