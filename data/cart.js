@@ -16,54 +16,54 @@ function saveToStorage (){
   localStorage.setItem('cart', JSON.stringify(cart));
 }
 //REAL CODE
-export function addToCart (productId){
-  let matchingItem;
-  const quantityProduct = Number(document.querySelector(`.js-quantity-selector-${productId}`).value);
-  const message = document.querySelector(`.added-to-cart-${productId}`);
-  
-  cart.forEach((cartItem)=>{
-    if (productId == cartItem.productId) {
-      matchingItem = cartItem;
-    }
-    });
-
-  if (matchingItem){
-    matchingItem.quantity+=quantityProduct;
-  }
-  else {
-    cart.push ({
-    productId: productId,
-    quantity:quantityProduct,
-    deliveryOptionId: '1'
-  });
-  }
-  saveToStorage();
-  
-  message.classList.add('added-visible');
-};
-
-//TO TEST cases JASMINE
-// export function addToCart(productId) {
+// export function addToCart (productId){
 //   let matchingItem;
-
-//   cart.forEach((cartItem) => {
-//     if (productId === cartItem.productId) {
+//   const quantityProduct = Number(document.querySelector(`.js-quantity-selector-${productId}`).value);
+//   const message = document.querySelector(`.added-to-cart-${productId}`);
+  
+//   cart.forEach((cartItem)=>{
+//     if (productId == cartItem.productId) {
 //       matchingItem = cartItem;
 //     }
-//   });
-
-//   if (matchingItem) {
-//     matchingItem.quantity += 1;
-//   } else {
-//     cart.push({
-//       productId: productId,
-//       quantity: 1,
-//       deliveryOptionId: '1'
 //     });
-//   }
 
+//   if (matchingItem){
+//     matchingItem.quantity+=quantityProduct;
+//   }
+//   else {
+//     cart.push ({
+//     productId: productId,
+//     quantity:quantityProduct,
+//     deliveryOptionId: '1'
+//   });
+//   }
 //   saveToStorage();
-// }
+  
+//   message.classList.add('added-visible');
+// };
+
+//TO TEST cases JASMINE
+export function addToCart(productId) {
+  let matchingItem;
+
+  cart.forEach((cartItem) => {
+    if (productId === cartItem.productId) {
+      matchingItem = cartItem;
+    }
+  });
+
+  if (matchingItem) {
+    matchingItem.quantity += 1;
+  } else {
+    cart.push({
+      productId: productId,
+      quantity: 1,
+      deliveryOptionId: '1'
+    });
+  }
+
+  saveToStorage();
+}
 
 export function removeFromCart (productId) {
   const newCart = [];
