@@ -1,17 +1,19 @@
-// Class
+// Class, making keys private/public, use #
+//private methods used inside the lcass only, so no confusion
+//which methods/properties to use and avoid
 
 class Cart {
   cartItems;
-  localStorageKey;
+  #localStorageKey;
 
   constructor(localStorageKey){
-    this.localStorageKey = localStorageKey;
-    this.loadFromStorage()
+    this.#localStorageKey = localStorageKey;
+    this.#loadFromStorage()
     
   }
 
-  loadFromStorage(){
-    this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey)) || [{
+  #loadFromStorage(){
+    this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey)) || [{
       productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
       quantity: 1,
       deliveryOptionId: '1'
@@ -118,7 +120,7 @@ const cart = new Cart('cart-oop');
 const businessCart = new Cart('cart-business');
 
 
-
+cart.#localStorageKey = 'haha';
 
 
 console.log(cart);
