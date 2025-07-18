@@ -2,7 +2,7 @@
 //this gives us outer object, this=cart
 function Cart(localStorageKey){
    const cart = {
-    cartItems: null,
+    cartItems: undefined,
 
     loadFromStorage(){
       this.cartItems = JSON.parse(localStorage.getItem(localStorageKey)) || [{
@@ -117,7 +117,8 @@ const businessCart = Cart('cart-business');
 
 
 cart.loadFromStorage();
-
+//notworking because it is a new object have  by default, need to change
+// cart.addToCart('e43638ce-6aa0-4b85-b27f-e1d07eb678c6');
 
 
 businessCart.loadFromStorage();
@@ -129,8 +130,8 @@ console.log(businessCart);
 
 
 
-// console.log('cart snapshot:', JSON.parse(JSON.stringify(cart.cartItems)));
-// console.log('businessCart snapshot:', JSON.parse(JSON.stringify(businessCart.cartItems)));
+console.log('cart snapshot:', JSON.parse(JSON.stringify(cart.cartItems)));
+console.log('businessCart snapshot:', JSON.parse(JSON.stringify(businessCart.cartItems)));
 
 
 

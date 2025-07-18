@@ -123,7 +123,7 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
 }
 
 
-console.log('cart snapshot:', JSON.parse(JSON.stringify(cart)));
+// console.log('cart snapshot:', JSON.parse(JSON.stringify(cart)));
 
 
 
