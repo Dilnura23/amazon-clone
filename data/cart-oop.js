@@ -2,7 +2,7 @@
 //this gives us outer object, this=cart
 function Cart(localStorageKey){
    const cart = {
-    cartItems: undefined,
+    cartItems: null,
 
     loadFromStorage(){
       this.cartItems = JSON.parse(localStorage.getItem(localStorageKey)) || [{
@@ -115,31 +115,6 @@ const businessCart = Cart('cart-business');
 
 
 
-//REAL CODE
-
-
-//TO TEST cases JASMINE
-// export function addToCart(productId) {
-//   let matchingItem;
-
-//   cart.forEach((cartItem) => {
-//     if (productId === cartItem.productId) {
-//       matchingItem = cartItem;
-//     }
-//   });
-
-//   if (matchingItem) {
-//     matchingItem.quantity += 1;
-//   } else {
-//     cart.push({
-//       productId: productId,
-//       quantity: 1,
-//       deliveryOptionId: '1'
-//     });
-//   }
-
-//   saveToStorage();
-// }
 
 cart.loadFromStorage();
 
@@ -154,6 +129,8 @@ console.log(businessCart);
 
 
 
+// console.log('cart snapshot:', JSON.parse(JSON.stringify(cart.cartItems)));
+// console.log('businessCart snapshot:', JSON.parse(JSON.stringify(businessCart.cartItems)));
 
 
 

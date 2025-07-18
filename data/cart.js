@@ -121,3 +121,24 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
     matchingItem.deliveryOptionId = deliveryOptionId;
     saveToStorage();
 }
+
+
+console.log('cart snapshot:', JSON.parse(JSON.stringify(cart)));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
