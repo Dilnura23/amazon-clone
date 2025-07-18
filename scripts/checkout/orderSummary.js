@@ -7,6 +7,8 @@ import { deliveryOptions, getDeliveryOption, calculateDeliveryDate } from '../..
 import { renderPaymentSummary } from './paymentSummary.js';
 
 
+
+
 export function renderOrderSummary(){
   let cartSummary = "";
 
