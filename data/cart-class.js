@@ -116,16 +116,16 @@ class Cart {
 
 
 
-const cart = new Cart('cart-oop');
+export const cart = new Cart('cart-oop');
 const businessCart = new Cart('cart-business');
+// console.log(cart);
+
+cart.localStorageKey = 'haha';
 
 
-cart.#localStorageKey = 'haha';
-
-
-console.log(cart);
-console.log(businessCart);
-console.log(businessCart instanceof Cart);
+// console.log(cart);
+// console.log(businessCart);
+// console.log(businessCart instanceof Cart);
 
 
 

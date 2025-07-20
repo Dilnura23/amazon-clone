@@ -124,14 +124,14 @@ cart.loadFromStorage();
 businessCart.loadFromStorage();
 
 
-console.log(cart);
-console.log(businessCart);
+// console.log(cart);
+// console.log(businessCart);
 
 
 
 
-console.log('cart snapshot:', JSON.parse(JSON.stringify(cart.cartItems)));
-console.log('businessCart snapshot:', JSON.parse(JSON.stringify(businessCart.cartItems)));
+// console.log('cart snapshot:', JSON.parse(JSON.stringify(cart.cartItems)));
+// console.log('businessCart snapshot:', JSON.parse(JSON.stringify(businessCart.cartItems)));
 
 
 

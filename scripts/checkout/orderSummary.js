@@ -1,4 +1,5 @@
-import {cart, removeFromCart, calculateCartQuantity, updateQuantity, saveQuantity, updateDeliveryOption} from '../../data/cart.js';
+// import {cart, removeFromCart, calculateCartQuantity, updateQuantity, saveQuantity, updateDeliveryOption} from '../../data/cart.js';
+import {cart} from '../../data/cart-class.js';
 import {products, getProduct} from '../../data/products.js';
 import formatCurrency from '../utils/money.js'; 
 import {hello} from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
@@ -13,7 +14,7 @@ export function renderOrderSummary(){
   let cartSummary = "";
 
 
-  cart.forEach((cartItem)=>{
+  cart.cartItems.forEach((cartItem)=>{
 
     const productId = cartItem.productId;
 
@@ -121,7 +122,7 @@ export function renderOrderSummary(){
     link.addEventListener('click', ()=>{
   
       const productId = link.dataset.productId;
-      removeFromCart(productId);
+      cart.removeFromCart(productId);
 
       //Uncomment for real Amazon project
       renderOrderSummary();
@@ -131,7 +132,7 @@ export function renderOrderSummary(){
     });
   })
 
-  calculateCartQuantity();
+  cart.calculateCartQuantity();
 
 
   document.querySelectorAll('.js-update-link').forEach((link)=>{
@@ -146,7 +147,7 @@ export function renderOrderSummary(){
     link.addEventListener('click', ()=>{
       const productId = link.dataset.productId
       const newQuantity = Number(document.querySelector(`.js-input-${productId}`).value);
-      saveQuantity(productId, newQuantity);
+      cart.saveQuantity(productId, newQuantity);
       renderPaymentSummary();
   })
   });
@@ -158,7 +159,7 @@ export function renderOrderSummary(){
       if (event.key == 'Enter') {
         const productId = input.dataset.productId
         const newQuantity = Number(input.value);
-        saveQuantity(productId, newQuantity);
+        cart.saveQuantity(productId, newQuantity);
         renderPaymentSummary();
       }
     });
@@ -168,7 +169,7 @@ export function renderOrderSummary(){
   document.querySelectorAll('.js-delivery-option').forEach((element)=>{
     element.addEventListener('click', ()=>{
       const {productId, deliveryOptionId} = element.dataset
-      updateDeliveryOption(productId, deliveryOptionId);
+      cart.updateDeliveryOption(productId, deliveryOptionId);
       renderOrderSummary();
       renderPaymentSummary();
     });

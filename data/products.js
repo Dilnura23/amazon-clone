@@ -12,12 +12,14 @@ export function getProduct(productId){
   return matchingProduct;
 }
 
+
 class Product {
   id;
   image;
   name;
   rating;
   priceCents;
+ 
 
   constructor(productDetails){
     this.id =  productDetails.id;
@@ -38,6 +40,22 @@ class Product {
   }
 }
 
+class Appliance extends Product{
+  type;
+  instructionsLink;
+  warrantyLink;
+
+  constructor(productDetails) {
+    super(productDetails);
+    this.instructionsLink = productDetails.instructionsLink;
+    this.warrantyLink = productDetails.warrantyLink;
+  }
+  extraInfoHTML(){
+     return `<a href = "${this.instructionsLink}" target = "_blank">Instructions</a>
+     <a href = "${this.warrantyLink}" target = "_blank">Warranty</a>`
+  }
+
+}
 
 //inheritance, helps to reuse code of another class
 //inheritance is a child of the parent (another class)
@@ -59,58 +77,7 @@ class Clothing extends Product {
   }
 }
 
-const tshirt = new Clothing(
-  {
-    id: "83d4ca15-0f35-48f5-b7a3-1ea210004f2e",
-    image: "images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg",
-    name: "Adults Plain Cotton T-Shirt - 2 Pack",
-    rating: {
-      stars: 4.5,
-      count: 56
-    },
-    priceCents: 799,
-    keywords: [
-      "tshirts",
-      "apparel",
-      "mens"
-    ],
-    type: "clothing",
-    sizeChartLink: "images/clothing-size-chart.png"
-  }
-  
-);
 
-/*
-const date = new Date();
-console.log(date);
-console.log(date.toLocaleTimeString());
-*/
-
-/*console.log(this);
-
-//no access, 'this' cant refer, no object to point to
-const object2 = {
-  a:2,
-  b:this.a
-};*/
-
-/*
-//undefined in regular function but can change using .call
-function logThis(){
-  console.log(this);
-}
-logThis();
-//.call changes 'this' to 'hello'
-logThis.call('hello');
-
-//'this' keeps the value that it had outside of the arrow function
-//arrow functions do not change the value of 'this'
-const object3 = {
-  method: ()=> {
-    console.log(this);
-  }
-};
-object3.method();*/
 
 export const products = [
   {
@@ -172,7 +139,10 @@ export const products = [
       "toaster",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: 'appliance',
+    instructionsLink: 'images/appliance-instructions.png',
+    warrantyLink: 'images/appliance-warranty.png'
   },
   {
     id: "3ebe75dc-64d2-4137-8860-1f5a963e534b",
@@ -187,7 +157,10 @@ export const products = [
       "plates",
       "kitchen",
       "dining"
-    ]
+    ],
+    type: 'appliance',
+    instructionsLink: 'images/appliance-instructions.png',
+    warrantyLink: 'images/appliance-warranty.png'
   },
   {
     id: "8c9c52b5-5a19-4bcb-a5d1-158a74287c53",
@@ -201,7 +174,10 @@ export const products = [
     keywords: [
       "kitchen",
       "cookware"
-    ]
+    ],
+    type: 'appliance',
+    instructionsLink: 'images/appliance-instructions.png',
+    warrantyLink: 'images/appliance-warranty.png'
   },
   {
     id: "dd82ca78-a18b-4e2a-9250-31e67412f98d",
@@ -357,7 +333,10 @@ export const products = [
       "water boiler",
       "appliances",
       "kitchen"
-    ]
+    ],
+    type: 'appliance',
+    instructionsLink: 'images/appliance-instructions.png',
+    warrantyLink: 'images/appliance-warranty.png'
   },
   {
     id: "6b07d4e7-f540-454e-8a1e-363f25dbae7d",
@@ -374,7 +353,10 @@ export const products = [
       "kitchen",
       "tissues box",
       "napkins"
-    ]
+    ],
+    type: 'appliance',
+    instructionsLink: 'images/appliance-instructions.png',
+    warrantyLink: 'images/appliance-warranty.png'
   },
   {
     id: "a82c6bac-3067-4e68-a5ba-d827ac0be010",
@@ -489,7 +471,10 @@ export const products = [
       "bins",
       "cans",
       "kitchen"
-    ]
+    ],
+    type: 'appliance',
+    instructionsLink: 'images/appliance-instructions.png',
+    warrantyLink: 'images/appliance-warranty.png'
   },
   {
     id: "19c6a64a-5463-4d45-9af8-e41140a4100c",
@@ -774,6 +759,9 @@ export const products = [
 ].map((productDetails)=>{
   if (productDetails.type === 'clothing'){
     return new Clothing(productDetails);
+  }
+  else if (productDetails.type === 'appliance'){
+    return new Appliance(productDetails);
   }
   return new Product(productDetails);
 });
