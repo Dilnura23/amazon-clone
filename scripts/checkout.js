@@ -1,6 +1,6 @@
 import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary} from "./checkout/paymentSummary.js";
-import { loadProducts } from "../data/products.js";
+import { loadProducts, loadProductsFetch } from "../data/products.js";
 import { loadCart} from "../data/cart.js";
 //runs everything this it is oop
 //import '../data/cart-class.js';
@@ -16,18 +16,19 @@ import { loadCart} from "../data/cart.js";
 
 //runs promises in ALL at the same time and then move
 Promise.all([
-  new Promise ((resolve)=>{
-    loadProducts(()=>{
-      resolve('value1');
-    });
-  }),
+  // new Promise ((resolve)=>{
+  //   loadProducts(()=>{
+  //     resolve('value1');
+  //   });
+  // }),
+  loadProductsFetch(),
   new Promise((resolve)=>{
     loadCart(()=>{
       resolve(); //resolve means like done()
     });
   })
 ]).then((values)=>{
-  console.log(values)
+  // console.log(values)
   renderOrderSummary();
   renderPaymentSummary();
 })

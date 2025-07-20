@@ -1,6 +1,6 @@
 import { renderOrderSummary } from "../../scripts/checkout/orderSummary.js";
 import {loadFromStorage, cart } from "../../data/cart.js";
-import { loadProducts } from "../../data/products.js";
+import { loadProducts, loadProductsFetch } from "../../data/products.js";
 
 
 
@@ -11,8 +11,7 @@ describe('test suite: renderOrderSummary', ()=>{
 
   //Asynchronous, the responce has not comeback yet
   beforeAll((done)=>{
-    loadProducts(()=>{
-      //waits for the result then moves to next function
+    loadProductsFetch().then(()=>{
       done();
     });
   });
