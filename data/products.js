@@ -96,15 +96,15 @@ export function loadProductsFetch(){
       return new Product(productDetails);
     });
 
-   console.log('load products')
+    console.log('load products fetch');
   });
-
+  
   return promise;
 }
 //RETURN a promise of out function and continue
-loadProductsFetch().then(()=>{
-  console.log('next step')
-});
+// loadProductsFetch().then(()=>{
+//   console.log('next step fetch 2')
+// });
 
 
 //Callbacks -called back in the future

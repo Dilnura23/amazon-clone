@@ -15,23 +15,51 @@ import { loadCart} from "../data/cart.js";
 //RESOLVE lets us control when to go next step
 
 //runs promises in ALL at the same time and then move
-Promise.all([
-  // new Promise ((resolve)=>{
-  //   loadProducts(()=>{
-  //     resolve('value1');
-  //   });
-  // }),
-  loadProductsFetch(),
-  new Promise((resolve)=>{
+
+//ASYNC = function returns a promise
+
+async function loadPage(){
+  // console.log('load page');
+
+  //can use await inside of async, function should be async
+  await loadProductsFetch();
+
+  const value = await new Promise ((resolve)=>{
     loadCart(()=>{
-      resolve(); //resolve means like done()
+      resolve('value3');
     });
-  })
-]).then((values)=>{
-  // console.log(values)
+  });
+  //OR we can asign const to promise instead of .then value
+  // .then((value)=> console.log(value))
+
   renderOrderSummary();
   renderPaymentSummary();
-})
+
+  
+}
+loadPage();
+
+
+
+
+
+// Promise.all([
+//   // new Promise ((resolve)=>{
+//   //   loadProducts(()=>{
+//   //     resolve('value1');
+//   //   });
+//   // }),
+//   loadProductsFetch(),
+//   new Promise((resolve)=>{
+//     loadCart(()=>{
+//       resolve(); //resolve means like done()
+//     });
+//   })
+// ]).then(()=>{
+//   // console.log(values)
+//   renderOrderSummary();
+//   renderPaymentSummary();
+// })
 
 /*new Promise ((resolve)=>{
   //first do loadProducts, resolve is like saying wait until previous code finishes then move next step
