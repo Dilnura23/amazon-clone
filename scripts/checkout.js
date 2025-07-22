@@ -19,16 +19,29 @@ import { loadCart} from "../data/cart.js";
 //ASYNC = function returns a promise
 
 async function loadPage(){
-  // console.log('load page');
+  //try catch catches the error inside async
+  try {
+    // throw 'error1'
+    await loadProductsFetch();
+    //reject is a function that lets us create and error in the future
+    //resolve is sucess
+    const value = await new Promise ((resolve, reject)=>{
+      //synchronous in the future
+      // throw 'error2'
+      loadCart(()=>{
+        //asyncronous in the future
+        //reject('error3')
+        resolve('value3');
+      });
+    });
+  } 
+  catch(error){
+  console.log('Unexpected error. Please try again later.');
+  }
+
 
   //can use await inside of async, function should be async
-  await loadProductsFetch();
-
-  const value = await new Promise ((resolve)=>{
-    loadCart(()=>{
-      resolve('value3');
-    });
-  });
+  
   //OR we can asign const to promise instead of .then value
   // .then((value)=> console.log(value))
 
