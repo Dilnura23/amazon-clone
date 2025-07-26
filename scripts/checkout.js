@@ -1,7 +1,7 @@
 import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary} from "./checkout/paymentSummary.js";
 import { loadProducts, loadProductsFetch } from "../data/products.js";
-import { loadCart} from "../data/cart.js";
+import { loadCart, loadCartFetch} from "../data/cart.js";
 //runs everything this it is oop
 //import '../data/cart-class.js';
 // import '../data/car.js';
@@ -22,18 +22,23 @@ async function loadPage(){
   //try catch catches the error inside async
   try {
     // throw 'error1'
-    await loadProductsFetch();
+    await Promise.all([
+      loadProductsFetch(),
+      loadCartFetch()
+    ]);
+   
     //reject is a function that lets us create and error in the future
     //resolve is sucess
-    const value = await new Promise ((resolve, reject)=>{
-      //synchronous in the future
-      // throw 'error2'
-      loadCart(()=>{
-        //asyncronous in the future
-        //reject('error3')
-        resolve('value3');
-      });
-    });
+    // const value = await new Promise ((resolve, reject)=>{
+    //   //synchronous in the future
+    //   // throw 'error2'
+    //   loadCart(()=>{
+    //     //asyncronous in the future
+    //     //reject('error3')
+    //     resolve('value3');
+    //   });
+    // });
+  
   } 
   catch(error){
   console.log('Unexpected error. Please try again later.');

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lesson 18g</title>
+  </head>
+  <body>
+    <script>
+      async function getAmazon(){
+        // by default fetch is get
+        try{
+          const response = await fetch('https://supersimplebackend.dev', {
+          method: 'POST',
+          headers: {'Content-type': 'application/json'}
+          });
+
+          if (respose.status >=400) {
+              throw response;
+            };
+
+          } catch (error){
+            if (error.status === 400){
+              const errorMessage = await error.json();
+              console.log(errorMessage);
+            }
+            else { 
+              console.log('Network error, please try again later.');
+            }
+        } 
+      }
+        
+      getAmazon();
+ 
+      
+    </script>
+  </body>
+</html>

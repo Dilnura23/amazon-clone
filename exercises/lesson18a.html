@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lesson 18a</title>
+  </head>
+  <body>
+    <script>
+      const xhr = new XMLHttpRequest();
+      xhr.addEventListener('load', ()=>{
+        const greeting = xhr.response;
+      })
+      xhr.open('GET','https://supersimplebackend.dev/greeting');
+      xhr.send();
+    </script>
+  </body>
+</html>

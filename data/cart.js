@@ -111,7 +111,13 @@ export function loadCart(fun){
   xhr.send();
   }
 
-// console.log('cart snapshot:', JSON.parse(JSON.stringify(cart)));
+export async function loadCartFetch(){
+  const fetchCart = await fetch('https://supersimplebackend.dev/cart')
+  const response = await fetchCart.text();
+  console.log(response);
+  return response;
+
+}
 
 
 
