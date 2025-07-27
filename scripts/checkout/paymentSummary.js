@@ -58,6 +58,7 @@ export function renderPaymentSummary (){
     `;
     document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML;
     document.querySelector('.js-place-order').addEventListener('click', async ()=>{
+      if (cart.calculateCartQuantity()!=0){
       try{
         const response = await fetch('https://supersimplebackend.dev/orders', {
           method: 'POST',
@@ -77,8 +78,11 @@ export function renderPaymentSummary (){
       } catch (error){
         console.log('Unexpected error. Try again later')
       }
-
-      window.location.href = 'orders.html'
+      cart.clearCart();
+      window.location.href = 'orders.html';
+    }
+    else alert('No items selected, insufficient quantity')
+      
     
     })
 }
