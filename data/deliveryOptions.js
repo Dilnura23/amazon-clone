@@ -47,3 +47,19 @@ export function calculateDeliveryDate(deliveryOption){
     return dateString;
   
 }
+
+export function calculateDeliveryDateForTrack(deliveryOption){
+
+  let remainingDays = deliveryOption.deliveryDays
+  let deliverDate = dayjs();
+  
+  while(remainingDays>0){
+    deliverDate = deliverDate.add(1, 'days');
+     if(!isWeekend(deliverDate)){
+      remainingDays--;
+     }
+  }
+  
+  return deliverDate;
+
+}
