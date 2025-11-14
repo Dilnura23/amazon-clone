@@ -12,11 +12,26 @@ async function loadPage(){
 
   let ordersHTML = "";
 
-  orders.forEach(order => {
+  let filteredOrders = orders;
+  const url = new URLSearchParams(location.search);
+  const search = url.get('search');
+
+  if (search){
+    filteredOrders = orders.filter((order)=>{
+      return order.products.some((productDetails)=>{
+        const product = getProduct(productDetails.productId)
+        return product.name.toLowerCase().includes(search.toLowerCase())
+      })
+      
+    })
+  }
+
+  filteredOrders.forEach(order => {
     const orderTimeString = dayjs(order.orderTime).format('MMMM DD');
- 
+    const productList = productListHTML(order);
+    if (!productList) return;  // prevent empty boxes-dont need this part because we already filtered out before
 
-
+  
   ordersHTML +=`
     <div class="orders-grid">
     <div class="order-container">
@@ -43,11 +58,18 @@ async function loadPage(){
   })
 
     function productListHTML(order){
-      let productList = ''
+      let productList = '';
+      const url = new URLSearchParams(location.search);
+      const search = url.get('search');
 
       order.products.forEach((productDetails)=>{
         //will get product info
         const product = getProduct(productDetails.productId);
+
+        // If search exists and product doesn't match, return empty string=nothing
+        if (search && !product.name.toLowerCase().includes(search.toLowerCase())) {
+          return;
+        }
 
       
 
@@ -125,6 +147,16 @@ document.querySelectorAll('.js-buy-again').forEach((button)=>{
  
 })
 
+  document.querySelector('.js-search-button').addEventListener('click', ()=>{
+    const search = document.querySelector('.js-search-bar').value;
+    window.location.href = `orders.html?search=${search}`;
+  })
+  document.querySelector('.js-search-bar').addEventListener('keydown', (event)=>{
+    if (event.key === 'Enter'){
+      const search = document.querySelector('.js-search-bar').value;
+      window.location.href = `orders.html?search=${search}`;
+    }
+  })
 }
 
 loadPage()
